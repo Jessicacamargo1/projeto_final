@@ -5,7 +5,7 @@ import { EnrollmentService } from './enrollment.service';
 export class EnrollmentController {
     constructor(private readonly enrollmentService: EnrollmentService) {}
             
-            @Get()
+            @Get(':id/enrollments')
             findAll() {
                 return this.enrollmentService.findAll()
                 

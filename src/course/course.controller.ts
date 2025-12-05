@@ -1,29 +1,38 @@
 import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
 import { CourseService } from './course.service';
 import { upsertCourseDTO } from './dto/upsert.dto';
+import { EnrollmentService } from '../enrollment/enrollment.service';
 
 @Controller('course')
 export class CourseController {
- 
-    constructor(private readonly courseService: CourseService) {}
-        
-        @Get()
-        findAll() {
-            return this.courseService.findAll()
-             
-        }
-        @Post('/')
-        create(@Body() courseBody: upsertCourseDTO) {
-           return this.courseService.create(courseBody);
-    }
+  constructor(
+    private readonly courseService: CourseService,
+    private readonly enrollmentService: EnrollmentService,
+  ) {}
 
-    @Put(':id')
-        update(@Param('id') courseID: number, @Body() updateBody: upsertCourseDTO) {
-            return this.courseService.update(courseID, updateBody);
-        }
+  @Get()
+  findAll() {
+    return this.courseService.findAll();
+  }
 
-       @Delete(':id')
-            delete(@Param('id') courseID: number) {
-                return this.courseService.delete(courseID);
-            }
+  @Post('/')
+  create(@Body() courseBody: upsertCourseDTO) {
+    return this.courseService.create(courseBody);
+  }
+
+  @Put(':id')
+  update(@Param('id') courseID: number, @Body() updateBody: upsertCourseDTO) {
+    return this.courseService.update(courseID, updateBody);
+  }
+
+  @Delete(':id')
+  delete(@Param('id') courseID: number) {
+    return this.courseService.delete(courseID);
+  }
+
+  // Nova rota: retorna todas as matrículas do curso
+  @Get(':id/enrollments')
+  async getEnrollments(@Param('id') courseID: number) {
+    return this.enrollmentService.findByCourse(courseID);
+  }
 }
