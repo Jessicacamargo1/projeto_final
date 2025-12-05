@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Course } from './course.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -16,9 +16,11 @@ export class CourseService {
     
          this.course = [
             {
-                "id": 1,
-                "nome": "Back-end",
-                "aluno": "Jéssica",
+           "id": 10,
+           "name": "Informática Profissional",
+           "price": 750,
+           "active": true
+
                 
             }
          ]
@@ -35,6 +37,30 @@ export class CourseService {
              return {
               "message": "Novo Curso!"
           };
-    
+        }
+             async update(id: number, course: upsertCourseDTO) {
+              const courseFound = await this.courseRepository.findOne({
+              where: {id}
+        })
+        if(!courseFound) {
+            throw new NotFoundException('Curso não encontrado!');
+        }
+        await this.courseRepository.update(id,course);
+        
+        
+            return {
+              "message": "Curso Atualizado!"
+        };
+    }
+
+              async delete(id: number) {
+        await this.courseRepository.delete(id);
+         return {
+           "message": "Curso marcado como inativo com sucesso.!"
+      }
+  }
            }
-}
+   
+    
+
+

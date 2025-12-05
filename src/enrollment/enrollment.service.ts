@@ -1,8 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { Enrollment } from './enrollment.entity';
+
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { upsertEnrollmentDTO } from './dto/upsert.dto';
+
+import { Enrollment } from './enrollment.entity';
+import { UpsertEnrollmentDTO } from './dto/upsert.dto';
 
 @Injectable()
 export class EnrollmentService {
@@ -28,7 +30,7 @@ export class EnrollmentService {
                    return this.enrollmentRepository.find();
                }
            
-               async create(Enrollment: upsertEnrollmentDTO) {
+               async create(Enrollment: UpsertEnrollmentDTO) {
                   const newEnrollment = this.enrollmentRepository.create(Enrollment);
                  await this.enrollmentRepository.save(newEnrollment);
         

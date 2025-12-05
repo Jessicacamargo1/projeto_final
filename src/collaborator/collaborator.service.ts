@@ -6,6 +6,13 @@ import { upsertCollaboratorDTO } from "./dto/upsert.dto";
 
 @Injectable()
 export class CollaboratorService {
+    async findByEmail(email: string): Promise<Collaborator | null> {
+  return this.collaboratorRepository.findOne({ where: { email } });
+}
+
+    buscarPorEmail(email: string) {
+        throw new Error('Method not implemented.');
+    }
    private collaborator: Array<any>;
 
    constructor(

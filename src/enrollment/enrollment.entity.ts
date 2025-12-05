@@ -1,13 +1,8 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Entity, PrimaryGeneratedColumn,  } from 'typeorm';
 
 
 @Entity()
-export class Enrollment{
-    @PrimaryGeneratedColumn()
-    id: number
-
-    @Column()
-    status: string;
-
-    
+export class Enrollment {
+  @PrimaryGeneratedColumn()
+  id: number;
 }

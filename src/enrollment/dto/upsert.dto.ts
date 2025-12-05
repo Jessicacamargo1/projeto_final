@@ -1,6 +1,6 @@
 import {IsNotEmpty } from "class-validator";
 
-export class upsertEnrollmentDTO{
+export class UpsertEnrollmentDTO{
      @IsNotEmpty()
         status: string;
 

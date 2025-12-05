@@ -7,11 +7,18 @@ export class Course{
     id: number
 
     @Column()
-    descricao: string;
+    description: string;
 
     @Column('decimal', {precision: 10, scale: 2})
-     duracao: number;
+     price: number;
 
      @Column()
-     nome: string;
+     name: string;
+     
+     @Column()
+     active: string
+
+
+  collaborators: any;
+    enrollments: any;
 }
